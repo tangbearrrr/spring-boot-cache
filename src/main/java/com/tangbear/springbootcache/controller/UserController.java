@@ -1,13 +1,11 @@
 package com.tangbear.springbootcache.controller;
 
+import com.tangbear.springbootcache.model.User;
 import com.tangbear.springbootcache.service.UserService;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -24,5 +22,15 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable Long id) throws NotFoundException {
         return ResponseEntity.ok().body(userService.getById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable Long id, @RequestBody User request) {
+        return ResponseEntity.ok().body(userService.update(id, request));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        return ResponseEntity.ok().body(userService.delete(id));
     }
 }
